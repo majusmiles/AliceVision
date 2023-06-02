@@ -6,7 +6,7 @@
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 
 #include <aliceVision/config.hpp>
-#include <aliceVision/feature/FeatureExtractor.hpp>
+#include <aliceVision/featureEngine/FeatureExtractor.hpp>
 #include <aliceVision/sfmData/SfMData.hpp>
 #include <aliceVision/sfmDataIO/sfmDataIO.hpp>
 #include <aliceVision/feature/imageDescriberCommon.hpp>
@@ -134,7 +134,7 @@ int aliceVision_main(int argc, char **argv)
     }
 
     // create feature extractor
-    feature::FeatureExtractor extractor(sfmData);
+    featureEngine::FeatureExtractor extractor(sfmData);
     extractor.setMasksFolder(masksFolder);
     extractor.setOutputFolder(outputFolder);
 
