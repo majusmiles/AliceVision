@@ -170,7 +170,7 @@ public:
 
 private:
 
-  void addPose(const sfmData::CameraPose& cameraPose, bool isConstant, SE3::Matrix & poseBlock, ceres::Problem& problem, bool refineTranslation, bool refineRotation);
+  void addPose(const sfmData::CameraPose& cameraPose, bool isConstant, bool isNormalized, SE3::Matrix & poseBlock, ceres::Problem& problem, bool refineTranslation, bool refineRotation);
 
   /**
    * @brief Clear structures for a new problem

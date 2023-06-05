@@ -275,8 +275,8 @@ int aliceVision_main(int argc, char** argv)
             sfmDataGT.getPoses()[i] = cposeGT;
             sfmDataGT.getViews()[i] = std::make_shared<sfmData::View>("", i, 0, i, 1920, 1080);
 
-            Eigen::Matrix3d Rup = SO3::expm(Vec3::Random() * ((i == 0)?0.0:0.05));
-            Eigen::Vector3d tup = Vec3::Random() * ((i == 0)?0.0:0.1);
+            Eigen::Matrix3d Rup = SO3::expm(Vec3::Random() * ((i < 1)?0.0:0.05));
+            Eigen::Vector3d tup = Vec3::Random() * ((i < 1)?0.0:0.1);
 
             geometry::Pose3 poseEst(Rup * R, pos + tup);
             sfmData::CameraPose cposeEst(poseEst, (i==0));
