@@ -277,7 +277,7 @@ public:
         Eigen::Matrix4d T_update = Eigen::Matrix4d::Identity();
 
         T_update = expm(vec_update);
-        T_result = T * T_update;
+        T_result = T_update * T;
 
         return true;
     }
@@ -309,7 +309,7 @@ public:
             J(14, 5) = 1;
         }
 
-        J = getJacobian_AB_wrt_B<4, 4, 4>(T, Eigen::Matrix4d::Identity()) * J;
+        J = getJacobian_AB_wrt_A<4, 4, 4>(Eigen::Matrix4d::Identity(), T) * J;
 
         return true;
     }

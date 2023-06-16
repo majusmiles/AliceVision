@@ -219,7 +219,7 @@ public:
     }
     _intrinsics->updateFromParams(params);
 
-    const SE3::Matrix T = cTr * rTo;
+    const SE3::Matrix T = /*cTr **/ rTo;
     const geometry::Pose3 T_pose3(T.block<3, 4>(0, 0));
 
     const Vec4 pth = pt.homogeneous();
@@ -234,12 +234,12 @@ public:
       return true;
     }
 
-    Eigen::Matrix2d d_res_d_pt_est = Eigen::Matrix2d::Identity() / scale;
+    double d_res_d_pt_est = 1.0 / scale;
 
     if (jacobians[0] != nullptr) {
       Eigen::Map<Eigen::Matrix<double, 2, 16, Eigen::RowMajor>> J(jacobians[0]);
 
-      J = d_res_d_pt_est * _intrinsics->getDerivativeProjectWrtPose(T_pose3, pth) * getJacobian_AB_wrt_B<4, 4, 4>(cTr, rTo) /** getJacobian_AB_wrt_B<4, 4, 4>(rTo, Eigen::Matrix4d::Identity())*/;
+      J = d_res_d_pt_est * _intrinsics->getDerivativeProjectWrtPose(T_pose3, pth) /** getJacobian_AB_wrt_B<4, 4, 4>(cTr, rTo) *//** getJacobian_AB_wrt_B<4, 4, 4>(rTo, Eigen::Matrix4d::Identity())*/;
     }
 
     if (jacobians[1] != nullptr) {
@@ -367,12 +367,11 @@ void BundleAdjustmentSymbolicCeres::addPose(const sfmData::CameraPose& cameraPos
     return;
   }
 
-  if (refineRotation && refineTranslation)
+  if (refineRotation || refineTranslation)
   {
 
     if (isNormalized)
     {
-        std::cout << "ok"<<std::endl;
         #if ALICEVISION_CERES_HAS_MANIFOLD
         problem.SetManifold(poseBlockPtr, new SE32::Manifold(refineRotation, refineTranslation));
         #else
@@ -604,7 +603,7 @@ void BundleAdjustmentSymbolicCeres::addExtrinsicsToProblem(const sfmData::SfMDat
 
     const bool isConstant = (getPoseState(poseId) == EParameterState::CONSTANT);
 
-    addPose(pose, isConstant, (poseId == 1), _posesBlocks[poseId], problem, refineTranslation, refineRotation);
+    addPose(pose, isConstant, false, _posesBlocks[poseId], problem, refineTranslation, refineRotation);
   }
 
   // setup sub-poses data

@@ -287,7 +287,7 @@ int aliceVision_main(int argc, char** argv)
 
         int tid = 0;
 
-       /* for (double y = -2.0; y < 2.1; y+=0.1)
+        for (double y = -2.0; y < 2.1; y+=0.1)
         {
             for (double x = -2.0; x < 2.1; x+=0.1)
             {
@@ -302,7 +302,7 @@ int aliceVision_main(int argc, char** argv)
 
                 tid++;
             }
-        }*/
+        }
 
 
         /*for (double y = -2.0; y < 2.1; y+=0.1)
@@ -381,7 +381,7 @@ int aliceVision_main(int argc, char** argv)
         }
 
         BundleAdjustmentSymbolicCeres::CeresOptions options;
-        BundleAdjustment::ERefineOptions refineOptions = BundleAdjustment::REFINE_ROTATION | BundleAdjustment::REFINE_TRANSLATION |BundleAdjustment::REFINE_STRUCTURE | BundleAdjustment::REFINE_INTRINSICS_FOCAL | BundleAdjustment::REFINE_INTRINSICS_OPTICALOFFSET_ALWAYS;
+        BundleAdjustment::ERefineOptions refineOptions = BundleAdjustment::REFINE_ROTATION |BundleAdjustment::REFINE_TRANSLATION |BundleAdjustment::REFINE_STRUCTURE | BundleAdjustment::REFINE_INTRINSICS_FOCAL | BundleAdjustment::REFINE_INTRINSICS_OPTICALOFFSET_ALWAYS;
         options.summary = true;
 
         BundleAdjustmentSymbolicCeres BA(options, 3);
@@ -389,7 +389,6 @@ int aliceVision_main(int argc, char** argv)
 
     }
 
-    
-
     return EXIT_SUCCESS;
 }
+//2.153681e-15 46
